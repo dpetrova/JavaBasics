@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -13,11 +14,11 @@ public class _03_LegoBlocks {
 		char[][] firstBlock = new char[rows][];
 		char[][] secondBlock = new char[rows][];
 		for (int i = 0; i < rows; i++) {
-			String input = scn.nextLine().trim();
+			String input = scn.nextLine().trim().replace(" ", "");
 			firstBlock[i] = input.toCharArray();
 		}
 		for (int i = 0; i < rows; i++) {
-			String input = scn.nextLine().trim();
+			String input = scn.nextLine().trim().replace(" ", "");
 			secondBlock[i] = input.toCharArray();
 		}
 		
@@ -29,12 +30,17 @@ public class _03_LegoBlocks {
 				secondBlock[i][secondBlock[i].length - 1 - j] = temp;
 			}
 		}
+		
+		//merge matricies
+		for (int i = 0; i < firstBlock.length; i++) {
+			Arrays.asList(firstBlock[i]).addAll(Arrays.asList(secondBlock[i]));			
+		}
 
 		//check fitting
 		boolean isFit = false;
 		for (int i = 0; i < rows - 1; i++) {
-			if (firstBlock[i].length + secondBlock[i].length == 
-								firstBlock[i + 1].length + secondBlock[i + 1].length) {
+			if (firstBlock[i].length == 
+								firstBlock[i + 1].length) {
 				isFit = true;
 				continue;
 			}
@@ -46,20 +52,15 @@ public class _03_LegoBlocks {
 		
 		if (isFit) {
 			for (int i = 0; i < firstBlock.length; i++) {
-				String str1 = String.valueOf(firstBlock[i]).replace(" ", "");
-				String str2 = String.valueOf(secondBlock[i]).replace(" ", "");
-				char[] concatStr = (str1 + str2).toCharArray();
-				ArrayList<Character> result = new ArrayList<Character>();
-				for (int j = 0; j < concatStr.length; j++) {
-					result.add(concatStr[j]);
-				}
-				System.out.println(result);
+				System.out.println(firstBlock[i]);
 			}
 		}
 		else {
 			int totalNumberOfCells = 0;
-			for (int i = 0; i < firstBlock.length; i++) {
-				totalNumberOfCells += (firstBlock[i].length/2) + 1 + (secondBlock[i].length/ 2) + 1;
+			for (int i = 0; i < rows; i++) {
+				String str1 = String.valueOf(firstBlock[i]).replace(" ", "");
+				String str2 = String.valueOf(secondBlock[i]).replace(" ", "");
+				totalNumberOfCells += str1.length() + str2.length();				
 			}
 			System.out.println("The total number of cells is: " + totalNumberOfCells);
 		}

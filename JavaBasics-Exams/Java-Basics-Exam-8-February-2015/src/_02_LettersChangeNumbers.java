@@ -15,10 +15,10 @@ public class _02_LettersChangeNumbers {
 			char firstLetter = input[i].charAt(0);
 			char lastLetter = input[i].charAt(input[i].length() - 1);
 			if (firstLetter >= 'A' && firstLetter <= 'Z') {
-				result = (double)number / (firstLetter % 64);
+				result = (double)number / (firstLetter % ('A' - 1));
 			}
 			else {
-				result = (double)number * (firstLetter % 96);
+				result = (double)number * (firstLetter % ('a' - 1));
 			}
 			if (lastLetter >= 'A' && lastLetter <= 'Z') {
 				result -= (lastLetter % ('A' - 1));
